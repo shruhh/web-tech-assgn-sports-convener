@@ -22,11 +22,9 @@
       </li>
       <li class="nav-item">
         <a class="nav-link" href="userinfo.php">Data</a>
-      </li>
-      
+      </li>    
 
     </ul>
-
   </div>
 </nav>
 
@@ -35,15 +33,62 @@
 
   <div class="form-group">
     <label for="formGroupExampleInput">Name</label>
-    <input type="text" class="form-control" id="name" placeholder="Enter your full name">
+    <input type="text" class="form-control" name="name" placeholder="Enter your full name">
   </div>
   <div class="form-group">
     <label for="formGroupExampleInput2">Roll Number</label>
-    <input type="text" class="form-control" id="rollno" placeholder="Enter your roll number">
+    <input type="text" class="form-control" name="roll"  placeholder="Enter your roll number">
   </div>
    
    <button type="submit" class="btn btn-primary">Submit</button>
 </form>
+</div>
+	
+<div class="w-50 m-auto">
+<style>
+table {
+	border-collapse: collapse;
+	width: 100%;
+	color: #588c7e;
+	font-family: monospace;
+	font-size: 25px;
+	text-align: left;
+}
+th {
+	background-color: #588c7e;
+	color: white;
+}
+tr:nth-child(even) {background-color: #f2f2f2}
+</style>
+</head>
+<body>
+<table>
+<tr>
+<th>Id</th>
+<th>Name</th>
+<th>Roll No.</th>
+</tr>
+
+<?php
+	$conn = mysqli_connect('localhost', 'root', '', "iitbsportsdata");
+	// Check connection
+	if ($conn->connect_error) {
+	die("Connection failed: " . $conn->connect_error);
+	}
+	$sql = "SELECT id, name, roll FROM userinfodata";
+	$result = $conn->query($sql);
+	if ($result->num_rows > 0) {
+	// output data of each row
+	while($row = $result->fetch_assoc()) {
+	echo "<tr><td>" . $row["id"]. "</td><td>" . $row["name"] . "</td><td>"
+	. $row["roll"]. "</td></tr>";
+	}
+	echo "</table>";
+	} else { echo "0 results"; }
+	$conn->close();
+?>
+</table>
+</body>
 </div>
 
 
